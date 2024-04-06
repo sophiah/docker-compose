@@ -1,0 +1,24 @@
+x-minio-common: &minio-common
+  image: quay.io/minio/minio:RELEASE.2024-03-26T22-10-45Z
+  command: server --console-address ":9001" http://minio/data{1...2}
+  expose:
+    - "9000"
+    - "9001"
+  environment:
+    MINIO_ROOT_USER: minioadmin
+    MINIO_ROOT_PASSWORD: minioadmin
+  healthcheck:
+    test: ["CMD", "mc", "ready", "local"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+ 
+  minio:
+    <<: *minio-common
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./minio-vol/data1:/data1
+      - ./minio-vol/data2:/data2
