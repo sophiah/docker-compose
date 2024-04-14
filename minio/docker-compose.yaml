@@ -12,7 +12,8 @@ x-minio-common: &minio-common
     interval: 5s
     timeout: 5s
     retries: 5
- 
+
+services: 
   minio:
     <<: *minio-common
     container_name: minio

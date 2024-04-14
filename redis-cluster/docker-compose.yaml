@@ -9,6 +9,7 @@ x-redis-common: &redis-common
     timeout: 3s
     retries: 30
 
+services:
   redis1:
     <<: *redis-common
     ports:
