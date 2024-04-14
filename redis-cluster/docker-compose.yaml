@@ -14,26 +14,38 @@ services:
     <<: *redis-common
     ports:
       - "6371:6379"
+    networks:
+      - external-net
   redis2:
     <<: *redis-common
     ports:
       - "6372:6379"
+    networks:
+      - external-net
   redis3:
     <<: *redis-common
     ports:
       - "6373:6379"
+    networks:
+      - external-net
   redis4:
     <<: *redis-common
     ports:
       - "6374:6379"
+    networks:
+      - external-net
   redis5:
     <<: *redis-common
     ports:
       - "6375:6379"
+    networks:
+      - external-net
   redis6:
     <<: *redis-common
     ports:
       - "6376:6379"
+    networks:
+      - external-net
   
   redis-cluster-creator:
     image: redis
@@ -43,3 +55,10 @@ services:
         condition: service_healthy
       redis2:
         condition: service_healthy
+    networks:
+      - external-net
+
+networks:
+  external-net:
+    name: external-net
+    external: true

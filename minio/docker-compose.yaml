@@ -23,3 +23,10 @@ services:
     volumes:
       - ./minio-vol/data1:/data1
       - ./minio-vol/data2:/data2
+    networks:
+      - external-net
+
+networks:
+  external-net:
+    name: external-net
+    external: true
