@@ -23,6 +23,8 @@ services:
     volumes:
       - ./minio-vol/data1:/data1
       - ./minio-vol/data2:/data2
+    environment:
+      - MINIO_HTTP_TRACE=/tmp/log.txt
     networks:
       - external-net
 
