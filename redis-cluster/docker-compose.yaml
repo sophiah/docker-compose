@@ -2,11 +2,12 @@ version: "3.3"
 
 x-redis-common: &redis-common
   image: redis:latest
-  command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+  # command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+  command: redis-server --port 6379 
   expose:
     - "6379"
   healthcheck:
-    test: [ "CMD", "redis-cli", "-p", "6379", "cluster", "info" ]
+    test: [ "CMD", "redis-cli", "-p", "6379" ]
     interval: 1s
     timeout: 3s
     retries: 30
@@ -49,16 +50,16 @@ services:
     networks:
       - external-net
   
-  redis-cluster-creator:
-    image: redis
-    entrypoint: [/bin/sh,-c,'echo "yes" | redis-cli --cluster create redis1:6379 redis2:6379 redis3:6379 redis4:6379 redis5:6379 redis6:6379 --cluster-replicas 1']
-    depends_on:
-      redis1:
-        condition: service_healthy
-      redis2:
-        condition: service_healthy
-    networks:
-      - external-net
+  # redis-cluster-creator:
+  #   image: redis
+  #   entrypoint: [/bin/sh,-c,'echo "yes" | redis-cli --cluster create redis1:6379 redis2:6379 redis3:6379 redis4:6379 redis5:6379 redis6:6379 --cluster-replicas 1']
+  #   depends_on:
+  #     redis1:
+  #       condition: service_healthy
+  #     redis2:
+  #       condition: service_healthy
+  #   networks:
+  #     - external-net
 
 networks:
   external-net:
